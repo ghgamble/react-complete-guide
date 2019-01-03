@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Validation from './Validation/Validation';
-import Char from './Char/Char';
 
 class App extends Component {
       state = {
@@ -11,8 +9,7 @@ class App extends Component {
                   { id: 'aple', name: 'Eric', age: 46},
                   { id: 'bioe', name: 'Eloise', age: 61}
             ],
-            showPersons: false,
-            userInput: ''
+            showPersons: false
       }
       deletePersonHandler = (personIndex) => {
             // const persons = this.state.persons.slice();
@@ -37,21 +34,10 @@ class App extends Component {
             const doesShow = this.state.showPersons;
             this.setState({showPersons: !doesShow});
       }
-      inputChangedHandler = (event) => {
-            this.setState({userInput: event.target.value});
-      }
-      deleteCharHandler = (index) => {
-            const text = this.state.userInput.split('');
-            text.splice(index, 1);
-            const updatedText = text.join('');
-            this.setState({userInput: updatedText});
-      }
       render() {
-            const charList = this.state.userInput.split('').map((char, index) => {
-                  return <Char character={char} key={index} clicked={() => this.deleteCharHandler(index)}/>;
-            });
             const style = {
-                  backgroundColor: 'white',
+                  backgroundColor: 'green',
+                  color: 'white',
                   font: 'inherit',
                   border: '1px solid blue',
                   padding: '8px',
@@ -71,6 +57,7 @@ class App extends Component {
                               })}
                         </div>
                   );
+                  style.backgroundColor = 'red';
             }
             return (
                   <div className="App">
@@ -78,13 +65,10 @@ class App extends Component {
                         <p>This is really working!</p>
                         <button
                               style={style}
-                              onClick={this.togglePersonsHandler}>Toggle Persons
+                              onClick={this.togglePersonsHandler}>
+                              Toggle Persons
                         </button>
                         {persons}
-                        <input type="text" onChange={this.inputChangedHandler} value={this.state.userInput}/>
-                        <p>{this.state.userInput}</p>
-                        <Validation inputLength={this.state.userInput.length} />
-                        {charList}
                   </div>
             );
       }
