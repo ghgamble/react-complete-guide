@@ -12,13 +12,15 @@ class Persons extends PureComponent {
                         { id: 'bioe', name: 'Eloise', age: 61}
                   ],
                   showPersons: false
-            }
+            };
+            this.lastPersonRef = React.createRef();
       }
       componentWillMount() {
             console.log('[Persons.js] Inside componentWillMount');
       }
       componentDidMount() {
             console.log('[Persons.js] inside componentDidMount');
+            this.lastPersonRef.current.focus();
       }
       componentWillReceiveProps(nextProps) {
             console.log('[Update Persons.js] Inside componentWillReceiveProps', nextProps);
@@ -43,6 +45,7 @@ class Persons extends PureComponent {
                         key={person.id}
                         name={person.name}
                         age={person.age}
+                        ref={this.lastPersonRef}
                         changed={(event) => this.props.changed(event, person.id)} />
             });
       }
